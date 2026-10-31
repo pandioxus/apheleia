@@ -1,7 +1,8 @@
-pub mod commands;
+pub mod world_commands;
 pub mod nodedata;
 pub mod stores;
 pub mod world;
+pub mod event_commands;
 
 pub mod types {
     pub type NodeId = u16;

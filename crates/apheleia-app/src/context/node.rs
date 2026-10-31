@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 use apheleia_ecs::{
-    commands::{
+    world_commands::{
         extension::AddExtensionToNode, node::SetDataForNode, resource::AddResource,
         system::AddSystem,
     }, nodedata::NodeData, stores::system::function_system::IntoSystem, traits::{context_command::ContextCommand, extension::Extension, resource::Resource}, types::{NodeId, SystemRunStage}, world::World

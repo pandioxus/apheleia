@@ -1,5 +1,3 @@
-use std::collections::linked_list;
-
 use crate::{types::NodeId, world::World};
 
 impl World {

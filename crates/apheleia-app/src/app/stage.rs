@@ -7,7 +7,7 @@ use std::{
 
 use apheleia_core::{buffer::Buffer, types::Vec2};
 use apheleia_ecs::{
-    commands::node::{ComputeAllBounds, ComputeAllGlobalBounds},
+    world_commands::node::{ComputeAllBounds, ComputeAllGlobalBounds},
     stores::{
         events::{EventRegistry, RenderDirty},
         nodebuffer::NodeBufferStore,

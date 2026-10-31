@@ -6,7 +6,7 @@ use crate::{
     node_definer::{EmptyNode, NodeDefiner},
 };
 use apheleia_ecs::{
-    commands::{
+    world_commands::{
         node::{
             ComputeBoundsForNode, ComputeGlobalBoundsForNode, RelateChildWithParent, SetDataForNode,
         },
