@@ -70,5 +70,6 @@ impl ExtensionStore {
 
     pub fn remove_extension<T: Extension>(&mut self, node_id: NodeId) {
         let pool = self.pools.get_mut(&T::id()).expect("ERROR AT ADDING EXTENSION. EXTENSION WASN'T REGISTERED").downcast_mut::<ExtensionPool<T>>().unwrap();
+        pool.remove(node_id);
     }
 }
