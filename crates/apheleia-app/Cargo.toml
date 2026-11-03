@@ -4,12 +4,5 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-apheleia-core.workspace = true
 apheleia-ecs.workspace = true
-
-indexmap.workspace = true
-rustc-hash.workspace = true
-smallvec.workspace = true
-tree-ds.workspace = true
-chrono.workspace = true
-bitvec.workspace = true
+apheleia-core.workspace = true

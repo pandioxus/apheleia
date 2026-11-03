@@ -26,6 +26,14 @@ version = "0.1.0"
 dependencies = [
  "apheleia-core",
  "apheleia-ecs",
+]
+
+[[package]]
+name = "apheleia-app-dep"
+version = "0.1.0"
+dependencies = [
+ "apheleia-core",
+ "apheleia-ecs",
  "bitvec",
  "chrono",
  "indexmap",
@@ -53,6 +61,7 @@ dependencies = [
 name = "apheleia-ecs"
 version = "0.1.0"
 dependencies = [
+ "apheleia-core",
  "apheleia-types",
  "chrono",
  "indexmap",
@@ -429,6 +438,13 @@ dependencies = [
  "log",
  "wasi",
  "windows-sys",
+]
+
+[[package]]
+name = "new-app"
+version = "0.1.0"
+dependencies = [
+ "apheleia-app",
 ]
 
 [[package]]

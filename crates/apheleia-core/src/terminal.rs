@@ -58,6 +58,10 @@ impl Terminal {
         Ok(())
     }
 
+    pub fn size(&mut self) -> Result<(u16, u16), io::Error> {
+        crossterm::terminal::size()
+    }
+
     pub fn events(&mut self) -> mpsc::Receiver<CrosstermEvent> {
         let (tx, rx) = mpsc::channel::<CrosstermEvent>();
         let tick_rate = Duration::from_millis(16);

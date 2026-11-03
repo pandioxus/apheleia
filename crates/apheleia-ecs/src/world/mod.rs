@@ -18,6 +18,8 @@ use crate::{
 };
 
 pub struct World {
+    pub terminal_size: (u16, u16),
+
     nodeid_gen: IdGenerator<NodeId>,
     pub relations: Tree<NodeId, NodeId>,
 
@@ -28,12 +30,14 @@ pub struct World {
 
     world_commands: Vec<Box<dyn WorldCommand>>,
 }
-impl Default for World {
-    fn default() -> Self {
+impl World {
+    pub fn new(terminal_size: (u16, u16)) -> Self {
         let mut relations = Tree::<NodeId, NodeId>::new(None);
         relations.add_node(Node::new(0, None), None).ok();
 
         Self {
+            terminal_size,
+
             nodeid_gen: IdGenerator::new(1), // 0 is reserved for terminal 'root'
             relations,
 
