@@ -45,13 +45,6 @@ impl<'w, Q: QueryType, F: QueryFilter> Query<'w, Q, F> {
         self.ids.is_empty()
     }
 
-    // pub fn get_single(&self) -> Option<Q::Item<'_>> {
-    //     if self.is_empty() {
-    //         return None;
-    //     }
-    //     Some(unsafe { Q::fetch(self.world, self.ids[0]) })
-    // }
-
     pub fn iter(&self) -> QueryIter<'_, Q> {
         QueryIter::new(self.world, self.ids.iter())
     }

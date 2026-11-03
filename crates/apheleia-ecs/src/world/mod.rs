@@ -25,6 +25,7 @@ pub struct World {
     buffer: Buffer,
 
     nodeid_gen: IdGenerator<NodeId>,
+    registered_nodeids: Vec<NodeId>,
     pub relations: Tree<NodeId, NodeId>,
 
     nodedata: NodeDataStore,
@@ -46,6 +47,7 @@ impl World {
             buffer: Buffer::new(terminal_size),
 
             nodeid_gen: IdGenerator::new(1), // 0 is reserved for terminal 'root'
+            registered_nodeids: Default::default(),
             relations,
 
             nodedata: Default::default(),
