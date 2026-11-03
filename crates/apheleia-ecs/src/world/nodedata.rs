@@ -10,4 +10,14 @@ impl World {
     pub fn nodedata_remove(&mut self, id: NodeId) {
         self.nodedata.remove(id);
     }
+
+    #[inline]
+    pub fn get_nodedata(&self, id: NodeId) -> Option<&NodeData> {
+        self.nodedata.get(id)
+    }
+
+    #[inline]
+    pub fn get_nodedata_mut(&mut self, id: NodeId) -> Option<&mut NodeData> {
+        self.nodedata.get_mut(id)
+    }
 }

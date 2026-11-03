@@ -15,6 +15,11 @@ impl World {
     }
 
     #[inline]
+    pub fn get_nodeids_with_extension<T: Extension>(&self) -> &Vec<u16> {
+        self.extension_store.get_nodes_with_extension::<T>()
+    }
+
+    #[inline]
     pub fn get_extension<T: Extension>(&self, id: NodeId) -> Option<&T> {
         self.extension_store.get_extension::<T>(id)
     }
