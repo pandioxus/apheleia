@@ -3,6 +3,7 @@ pub mod extensions;
 pub mod node;
 pub mod nodedata;
 pub mod resource;
+pub mod systems;
 
 use apheleia_types::id_gen::IdGenerator;
 use tree_ds::prelude::{Node, Tree};
@@ -18,7 +19,7 @@ use crate::{
 
 pub struct World {
     nodeid_gen: IdGenerator<NodeId>,
-    relations: Tree<NodeId, NodeId>,
+    pub relations: Tree<NodeId, NodeId>,
 
     nodedata: NodeDataStore,
     resource_store: ResourceStore,
