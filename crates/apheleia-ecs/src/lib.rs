@@ -3,6 +3,7 @@ pub mod nodedata;
 pub mod stores;
 pub mod world;
 pub mod system_params;
+pub mod canvas;
 
 pub mod types {
     pub type NodeId = u16;
