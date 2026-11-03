@@ -4,7 +4,9 @@ pub mod node;
 pub mod nodedata;
 pub mod resource;
 pub mod systems;
+pub mod buffer;
 
+use apheleia_core::buffer::Buffer;
 use apheleia_types::id_gen::IdGenerator;
 use tree_ds::prelude::{Node, Tree};
 
@@ -18,7 +20,9 @@ use crate::{
 };
 
 pub struct World {
+    pub is_running: bool,
     pub terminal_size: (u16, u16),
+    buffer: Buffer,
 
     nodeid_gen: IdGenerator<NodeId>,
     pub relations: Tree<NodeId, NodeId>,
@@ -36,7 +40,10 @@ impl World {
         relations.add_node(Node::new(0, None), None).ok();
 
         Self {
+            is_running: true,
+
             terminal_size,
+            buffer: Buffer::new(terminal_size),
 
             nodeid_gen: IdGenerator::new(1), // 0 is reserved for terminal 'root'
             relations,

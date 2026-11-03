@@ -1,4 +1,4 @@
-use std::{thread::sleep, time::Duration};
+use std::{io, thread::sleep, time::Duration};
 
 use apheleia_core::{buffer::Buffer, terminal::Terminal};
 use apheleia_ecs::world::{self, World};
@@ -6,8 +6,6 @@ use apheleia_ecs::world::{self, World};
 pub struct Apheleia {
     world: World,
     terminal: Terminal,
-
-    buffer: Buffer
 }
 impl Apheleia {
     #[allow(clippy::new_without_default)]
@@ -20,8 +18,6 @@ impl Apheleia {
         Self {
             world: World::new(size),
             terminal: term,
-
-            buffer: Buffer::new(size)
         }
     }
 
@@ -40,31 +36,37 @@ impl Apheleia {
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::PostUpdate);
     }
 
-    fn render_flip(&mut self) {
+    fn render_flip(&mut self) -> io::Result<()> {
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::PreRender);
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::Render);
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::PostRender);
 
-        self.terminal.render_clear(&mut self.buffer);
+        self.terminal.render_clear(self.world.get_buffer_mut())?;
+
+        Ok(())
     }
 
-    fn render_update(&mut self) {
+    fn render_update(&mut self) -> io::Result<()> {
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::PreRender);
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::Render);
         self.world.system_run(apheleia_ecs::stores::systems::SystemStage::PostRender);
 
-        self.terminal.render_update(&mut self.buffer);
+        self.terminal.render_update(self.world.get_buffer_mut())?;
+
+        Ok(())
     }
 
-    pub fn run(&mut self) {
-        self.render_flip();
-        while true {
+    pub fn run(&mut self) -> io::Result<()> {
+        self.render_flip()?;
+        while self.world.is_running {
             self.event();
             self.update();
-            self.render_update();
+            self.render_update()?;
 
             sleep(Duration::from_millis(16)); // TODO: Temporary. Replace with delta time tracking
                                               // with solid 60fps
         }
+
+        Ok(())
     }
 }
