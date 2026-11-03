@@ -3,6 +3,7 @@ pub mod buffer;
 pub mod terminal;
 pub mod style;
 pub mod rich_string;
+pub mod events;
 
 use std::error::Error;
 

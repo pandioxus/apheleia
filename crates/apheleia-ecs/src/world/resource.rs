@@ -7,12 +7,12 @@ impl World {
     }
 
     #[inline]
-    pub fn resource_get<T: Resource>(&self) {
-        self.resource_store.get::<T>();
+    pub fn resource_get<T: Resource>(&self) -> Option<&T> {
+        self.resource_store.get::<T>()
     }
 
     #[inline]
-    pub fn resource_get_mut<T: Resource>(&mut self) {
-        self.resource_store.get_mut::<T>();
+    pub fn resource_get_mut<T: Resource>(&mut self) -> Option<&mut T> {
+        self.resource_store.get_mut::<T>()
     }
 }

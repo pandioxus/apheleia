@@ -2,10 +2,14 @@ use std::{
     env,
     io::{self, Stdout, Write, stdout},
     mem::take,
+    sync::mpsc,
+    thread,
+    time::Duration,
 };
 
 use crossterm::{
     cursor::{self, MoveTo},
+    event::{self, Event},
     execute, queue,
     style::{
         self, Color, Print, SetAttribute, SetAttributes, SetBackgroundColor, SetForegroundColor,
@@ -15,9 +19,7 @@ use crossterm::{
 use tracing::info;
 
 use crate::{
-    buffer::Buffer,
-    cell::layered::MultiLayerCellTrait,
-    style::{Style, modifiers::Modifiers},
+    buffer::Buffer, cell::layered::MultiLayerCellTrait, events::CrosstermEvent, style::{Style, modifiers::Modifiers}
 };
 
 static mut QUEUE_COUNT: u32 = 0;
@@ -54,6 +56,27 @@ impl Terminal {
         // TODO: Use alternate screen
 
         Ok(())
+    }
+
+    pub fn events(&mut self) -> mpsc::Receiver<CrosstermEvent> {
+        let (tx, rx) = mpsc::channel::<CrosstermEvent>();
+        let tick_rate = Duration::from_millis(16);
+
+        thread::spawn(move || {
+            loop {
+                if event::poll(tick_rate).unwrap_or(false) {
+                    if let Ok(event) = event::read()
+                        && tx.send(CrosstermEvent::Event(event)).is_err()
+                    {
+                        break;
+                    }
+                } else if tx.send(CrosstermEvent::Tick).is_err() {
+                    break;
+                }
+            }
+        });
+
+        rx
     }
 
     pub fn render_update(&mut self, buffer: &mut Buffer) -> io::Result<()> {

@@ -1,8 +1,4 @@
 use apheleia_core::{KeyEvent, MouseEvent, types::Vec2};
-use std::{error::Error, fs::OpenOptions};
-
-use fern::Dispatch;
-use log::info;
 
 pub mod app;
 pub mod builder;

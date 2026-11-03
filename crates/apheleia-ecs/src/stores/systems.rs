@@ -84,7 +84,7 @@ pub(crate) struct SystemStore {
 }
 impl Default for SystemStore {
     fn default() -> Self {
-        let mut systems = vec![
+        let systems = vec![
             vec![],
 
             vec![],

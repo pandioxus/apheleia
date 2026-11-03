@@ -28,7 +28,6 @@ dependencies = [
  "apheleia-ecs",
  "bitvec",
  "chrono",
- "crossterm",
  "indexmap",
  "rustc-hash",
  "smallvec",
