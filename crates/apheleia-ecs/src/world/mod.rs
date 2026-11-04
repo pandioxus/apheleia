@@ -4,6 +4,7 @@ pub mod node;
 pub mod nodedata;
 pub mod resource;
 pub mod systems;
+pub mod local_events;
 
 use std::{cell::RefCell, rc::Rc};
 
@@ -13,8 +14,7 @@ use tree_ds::prelude::{Node, Tree};
 
 use crate::{
     stores::{
-        extensions::ExtensionStore, nodedata::NodeDataStore, resource::ResourceStore,
-        systems::SystemStore,
+        extensions::ExtensionStore, local_events::LocalEventRegistry, nodedata::NodeDataStore, resource::ResourceStore, systems::SystemStore
     },
     types::NodeId,
     world_commands::WorldCommand,
@@ -33,6 +33,8 @@ pub struct World {
     resource_store: ResourceStore,
     extension_store: ExtensionStore,
     system_store: SystemStore,
+
+    local_events: LocalEventRegistry,
 
     world_commands: Vec<Box<dyn WorldCommand>>,
 }
@@ -55,6 +57,8 @@ impl World {
             resource_store: Default::default(),
             extension_store: Default::default(),
             system_store: Default::default(),
+
+            local_events: Default::default(),
 
             world_commands: Default::default(),
         }

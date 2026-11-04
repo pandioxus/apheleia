@@ -29,6 +29,7 @@ pub mod types {
 
         use crate::world::World;
 
+        pub trait LocalEvent: Any + Debug + 'static {}
         pub trait Resource: Any + Debug + 'static {}
 
         static COMPONENT_ID_COUNT: AtomicUsize = AtomicUsize::new(0);
