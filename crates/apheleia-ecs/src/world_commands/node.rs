@@ -1,13 +1,30 @@
-use std::mem::take;
+use std::{fmt::Debug, mem::take};
 
-use crate::{world_commands::WorldCommand, nodedata::NodeData, types::{NodeId, traits::Extension}, world::World};
+use crate::{
+    nodedata::NodeData,
+    types::{NodeId, traits::Extension},
+    world::World,
+    world_commands::WorldCommand,
+};
 
-pub trait NodeSubCommand {
+pub trait NodeSubCommand: Debug {
     fn execute(self: Box<Self>, id: NodeId, world: &mut World);
 }
 
+#[derive(Debug)]
 pub struct CreateNode {
-    sub_commands: Vec<Box<dyn NodeSubCommand>>
+    parent_id: NodeId,
+    sub_commands: Vec<Box<dyn NodeSubCommand>>,
+    child_commands: Option<Vec<Box<dyn WorldCommand>>>,
+}
+impl CreateNode {
+    pub fn new(parent_id: NodeId, sub_commands: Vec<Box<dyn NodeSubCommand>>, child_commands: Option<Vec<Box<dyn WorldCommand>>>) -> Box<Self> {
+        Box::new(Self {
+            parent_id,
+            sub_commands,
+            child_commands
+        })
+    }
 }
 impl WorldCommand for CreateNode {
     fn execute(mut self: Box<Self>, world: &mut crate::world::World) {
@@ -16,30 +33,19 @@ impl WorldCommand for CreateNode {
         for command in commands {
             command.execute(node_id, world);
         }
-    }
-}
-impl CreateNode {
-    pub fn new() -> Self {
-        Self {
-            sub_commands: Default::default()
+
+        world.relate_node_with_parent(node_id, self.parent_id);
+
+        let Some(commands) = take(&mut self.child_commands) else {
+            return;
+        };
+        for command in commands  {
+            command.execute(world);
         }
     }
-
-    pub fn set_data(mut self, data: NodeData) -> Self {
-        self.sub_commands.push(NodeSetData::new(data));
-        self
-    }
-
-    pub fn add_extension<T: Extension>(mut self, ext: T) -> Self {
-        self.sub_commands.push(NodeAddExtension::new(ext));
-        self
-    }
-
-    pub fn build(self) -> Box<Self> {
-        Box::new(self)
-    }
 }
 
+#[derive(Debug)]
 pub struct NodeSetData(pub NodeData);
 impl NodeSetData {
     pub fn new(data: NodeData) -> Box<Self> {
@@ -52,6 +58,7 @@ impl NodeSubCommand for NodeSetData {
     }
 }
 
+#[derive(Debug)]
 pub struct NodeAddExtension<T: Extension>(pub T);
 impl<T: Extension> NodeAddExtension<T> {
     pub fn new(ext: T) -> Box<Self> {
@@ -63,5 +70,3 @@ impl<T: Extension> NodeSubCommand for NodeAddExtension<T> {
         world.add_extension(id, self.0);
     }
 }
-
-

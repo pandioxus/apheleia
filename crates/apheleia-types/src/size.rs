@@ -1,6 +1,6 @@
 use num_traits::Num;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Size<T: Num> {
     pub w: T,
     pub h: T,

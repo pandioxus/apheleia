@@ -1,5 +1,6 @@
 use crate::{world_commands::WorldCommand, types::{NodeId, traits::Extension}};
 
+#[derive(Debug)]
 pub struct AddExtension<T: Extension>(pub NodeId, pub T);
 impl<T: Extension> AddExtension<T> {
     pub fn new(id: NodeId, ext: T) -> Box<Self> {

@@ -1,5 +1,6 @@
 use crate::{world_commands::WorldCommand, nodedata::NodeData, types::NodeId};
 
+#[derive(Debug)]
 pub struct SetNodeData(pub NodeId, pub NodeData);
 impl SetNodeData {
     pub fn new(id: NodeId, data: NodeData) -> Box<Self> {

@@ -1,7 +1,7 @@
 use std::{io, thread::sleep, time::Duration};
 
-use apheleia_core::{buffer::Buffer, terminal::Terminal};
-use apheleia_ecs::world::{self, World};
+use apheleia_core::{terminal::Terminal};
+use apheleia_ecs::{types::{NodeId, traits::Resource}, world::World};
 
 pub struct Apheleia {
     world: World,
@@ -19,6 +19,15 @@ impl Apheleia {
             world: World::new(size),
             terminal: term,
         }
+    }
+
+    pub fn create_node(&mut self) -> NodeId {
+        self.world.node_create()
+    }
+
+    pub fn insert_resource<T: Resource>(mut self, resource: T) -> Self {
+        self.world.resource_insert(resource);
+        self
     }
 
     fn event(&mut self) {

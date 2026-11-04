@@ -1,5 +1,6 @@
 use crate::{world_commands::WorldCommand, types::traits::Resource};
 
+#[derive(Debug)]
 pub struct InsertResource<T: Resource>(T);
 
 impl<T: Resource> InsertResource<T> {

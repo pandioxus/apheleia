@@ -10,16 +10,15 @@ pub mod types {
 
     pub mod traits {
         use std::{
-            any::Any,
-            sync::{OnceLock, atomic::AtomicUsize},
+            any::Any, fmt::Debug, sync::{OnceLock, atomic::AtomicUsize}
         };
 
         use crate::world::World;
 
-        pub trait Resource: Any + 'static {}
+        pub trait Resource: Any + Debug + 'static {}
 
         static COMPONENT_ID_COUNT: AtomicUsize = AtomicUsize::new(0);
-        pub trait Extension: Any + 'static {
+        pub trait Extension: Any + Debug + 'static {
             fn id() -> usize
             where
                 Self: Sized,

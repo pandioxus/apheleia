@@ -2,7 +2,7 @@ use std::ops::{AddAssign, SubAssign};
 
 use num_traits::Num;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Point<T: Num> {
     pub x: T,
     pub y: T,
