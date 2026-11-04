@@ -8,6 +8,20 @@ pub mod canvas;
 pub mod types {
     pub type NodeId = u16;
 
+    #[derive(PartialEq, Eq)]
+    pub enum SystemStage {
+        Event = 0,
+
+        PreUpdate = 1,
+        Update = 2,
+        PostUpdate = 3,
+
+        PreRender = 4,
+        Render = 5,
+        PostRender = 6
+    }
+
+
     pub mod traits {
         use std::{
             any::Any, fmt::Debug, sync::{OnceLock, atomic::AtomicUsize}

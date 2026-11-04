@@ -7,6 +7,7 @@ impl World {
     pub fn node_create(&mut self) -> NodeId {
         let id = self.nodeid_gen.next();
         self.registered_nodeids.push(id);
+        println!("Created ID: {}", id);
         id
     }
 

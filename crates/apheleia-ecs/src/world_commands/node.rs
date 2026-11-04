@@ -14,13 +14,15 @@ pub trait NodeSubCommand: Debug {
 #[derive(Debug)]
 pub struct CreateNode {
     parent_id: NodeId,
+    id: NodeId,
     sub_commands: Vec<Box<dyn NodeSubCommand>>,
     child_commands: Option<Vec<Box<dyn WorldCommand>>>,
 }
 impl CreateNode {
-    pub fn new(parent_id: NodeId, sub_commands: Vec<Box<dyn NodeSubCommand>>, child_commands: Option<Vec<Box<dyn WorldCommand>>>) -> Box<Self> {
+    pub fn new(parent_id: NodeId, id: NodeId, sub_commands: Vec<Box<dyn NodeSubCommand>>, child_commands: Option<Vec<Box<dyn WorldCommand>>>) -> Box<Self> {
         Box::new(Self {
             parent_id,
+            id,
             sub_commands,
             child_commands
         })
@@ -28,13 +30,12 @@ impl CreateNode {
 }
 impl WorldCommand for CreateNode {
     fn execute(mut self: Box<Self>, world: &mut crate::world::World) {
-        let node_id = world.node_create();
         let commands = take(&mut self.sub_commands);
         for command in commands {
-            command.execute(node_id, world);
+            command.execute(self.id, world);
         }
 
-        world.relate_node_with_parent(node_id, self.parent_id);
+        world.relate_node_with_parent(self.id, self.parent_id);
 
         let Some(commands) = take(&mut self.child_commands) else {
             return;

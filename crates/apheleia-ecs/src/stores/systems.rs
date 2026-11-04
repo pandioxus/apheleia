@@ -1,10 +1,12 @@
 use std::any::TypeId;
 
-use crate::{stores::systems::function_system::{IntoSystem, System}, world::World};
+use crate::{
+    stores::systems::function_system::{IntoSystem, System}, types::SystemStage, world::World
+};
 
 pub mod function_system {
-    use std::{any::TypeId, marker::PhantomData};
     use crate::types::traits::SystemParam;
+    use std::{any::TypeId, marker::PhantomData};
 
     use crate::world::World;
 
@@ -65,40 +67,17 @@ pub mod function_system {
     impl_into_system!(P0, P1, P2, P3, P4, P5);
 }
 
-#[derive(PartialEq, Eq)]
-pub enum SystemStage {
-    Event = 0,
-
-    PreUpdate = 1,
-    Update = 2,
-    PostUpdate = 3,
-
-    PreRender = 4,
-    Render = 5,
-    PostRender = 6
-}
-
 pub(crate) struct SystemStore {
     systems: Vec<Vec<Box<dyn System>>>,
     registered_systems: Vec<TypeId>,
 }
 impl Default for SystemStore {
     fn default() -> Self {
-        let systems = vec![
-            vec![],
-
-            vec![],
-            vec![],
-            vec![],
-
-            vec![],
-            vec![],
-            vec![],
-        ];
+        let systems = vec![vec![], vec![], vec![], vec![], vec![], vec![], vec![]];
 
         Self {
             systems,
-            registered_systems: Default::default()
+            registered_systems: Default::default(),
         }
     }
 }

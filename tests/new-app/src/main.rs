@@ -1,19 +1,22 @@
-use apheleia_app::{
-    app::Apheleia,
-    builder::{self, NodeBuilder},
+use std::io;
+
+use apheleia_app::app::Apheleia;
+use apheleia_ecs::{
+    canvas::Canvas,
+    system_params::query::Query,
+    types::{NodeId, SystemStage},
 };
-use apheleia_types::{point::Point, size::Size};
+use apheleia_types::size::Size;
 
-fn main() {
-    let mut app = Apheleia::new();
+fn render_test(query: Query<(NodeId, Canvas)>) {
+    for (id, mut canvas) in query.iter() {
+        canvas.write_text(format!("hello {}", id).as_str(), (0, 0), 0, None);
+    }
+}
 
-    let commands = NodeBuilder::new(0, &mut app)
-        .create_child(|builder| builder.set_position(Point { x: 10, y: 5 }))
-        .create_child(|builder| {
-            builder
-                .set_size(Size { w: 10, h: 10 })
-                .create_child(|builder| builder.set_position(Point { x: 10, y: 5 }))
-        })
-        .build();
-    println!("{:#?}", commands);
+fn main() -> io::Result<()> {
+    Apheleia::new()
+        .add_system(SystemStage::Render, render_test)
+        .create_child(|builder| builder.set_size(Size { w: 10, h: 10 }))
+        .run()
 }

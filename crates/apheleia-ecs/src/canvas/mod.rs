@@ -1,18 +1,25 @@
-use apheleia_core::buffer::Buffer;
+use std::{cell::{RefCell, RefMut}, rc::Rc};
+
+use apheleia_core::{buffer::Buffer, style::Style};
 
 use crate::{nodedata::NodeData, types::NodeId};
 
-pub struct Canvas<'w> {
+pub struct Canvas {
     id: NodeId,
     nodedata: NodeData,
-    buffer: &'w mut Buffer,
+    buffer: Rc<RefCell<Buffer>>,
 }
-impl<'w> Canvas<'w> {
-    pub fn new(id: NodeId, nodedata: NodeData, buffer: &'w mut Buffer) -> Self {
+impl Canvas {
+    pub fn new(id: NodeId, nodedata: NodeData, buffer: Rc<RefCell<Buffer>>) -> Self {
         Canvas {
             id,
             nodedata,
             buffer,
         }
+    }
+
+    // TODO: Temporary to get something drawn
+    pub fn write_text(&mut self, text: &str, position: (u16, u16), z: i8, style: Option<Style>) {
+        self.buffer.borrow_mut().write(text, position, z, style);
     }
 }

@@ -1,7 +1,7 @@
 use crate::{canvas::Canvas, nodedata::NodeData, system_params::query::QueryType};
 
-impl QueryType for Canvas<'static> {
-    type Item<'w> = Canvas<'w>;
+impl QueryType for Canvas {
+    type Item<'w> = Canvas;
 
     fn match_ids(world: &crate::world::World) -> Option<Vec<crate::types::NodeId>> {
         None
@@ -13,7 +13,7 @@ impl QueryType for Canvas<'static> {
         };
 
         if let Some(data) = world.get_nodedata(id) {
-            return Some(Canvas::new(id, data.clone(), world.get_buffer_mut()));
+            return Some(Canvas::new(id, data.clone(), world.buffer.clone()));
         }
         None
     }

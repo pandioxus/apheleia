@@ -1,4 +1,4 @@
-use crate::{stores::systems::{SystemStage, function_system::{IntoSystem, System}}, world::World};
+use crate::{stores::systems::function_system::{IntoSystem, System}, types::SystemStage, world::World};
 
 impl World {
     #[inline]

@@ -4,7 +4,8 @@ pub mod node;
 pub mod nodedata;
 pub mod resource;
 pub mod systems;
-pub mod buffer;
+
+use std::{cell::RefCell, rc::Rc};
 
 use apheleia_core::buffer::Buffer;
 use apheleia_types::id_gen::IdGenerator;
@@ -22,7 +23,7 @@ use crate::{
 pub struct World {
     pub is_running: bool,
     pub terminal_size: (u16, u16),
-    buffer: Buffer,
+    pub buffer: Rc<RefCell<Buffer>>,
 
     nodeid_gen: IdGenerator<NodeId>,
     registered_nodeids: Vec<NodeId>,
@@ -44,7 +45,7 @@ impl World {
             is_running: true,
 
             terminal_size,
-            buffer: Buffer::new(terminal_size),
+            buffer: Rc::new(RefCell::new(Buffer::new(terminal_size))),
 
             nodeid_gen: IdGenerator::new(1), // 0 is reserved for terminal 'root'
             registered_nodeids: Default::default(),

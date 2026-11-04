@@ -9,8 +9,14 @@ impl World {
     }
 
     #[inline]
+    pub fn append_commands(&mut self, commands: &mut Vec<Box<dyn WorldCommand>>) {
+        self.world_commands.append(commands);
+    }
+
+    #[inline]
     pub fn execute_commands(&mut self) {
         let commands = take(&mut self.world_commands);
+        println!("{:#?}", commands);
         for command in commands {
             command.execute(self);
         }

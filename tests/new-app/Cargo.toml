@@ -5,4 +5,5 @@ edition.workspace = true
 
 [dependencies]
 apheleia-app.workspace = true
+apheleia-ecs.workspace = true
 apheleia-types.workspace = true

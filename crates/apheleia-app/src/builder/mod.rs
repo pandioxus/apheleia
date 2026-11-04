@@ -21,7 +21,7 @@ pub struct NodeBuilder<'w> {
 }
 impl<'w> NodeBuilder<'w> {
     pub fn new(parent_id: NodeId, app: &'w mut Apheleia) -> NodeBuilder<'w> {
-        let id = app.create_node();
+        let id = app.get_world_mut().node_create();
         Self {
             app,
 
@@ -64,6 +64,7 @@ impl<'w> NodeBuilder<'w> {
 
         vec![CreateNode::new(
             self.parent_id,
+            self.id,
             self.node_subcommands,
             Some(self.child_commands),
         )]
