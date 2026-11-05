@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use crate::types::traits::{Resource, SystemParam};
+use crate::{resource::traits::Resource, system::definitions::SystemParam};
 
 pub struct Res<'w, T: Resource + 'static> {
     res: &'w T,

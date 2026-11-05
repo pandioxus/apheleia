@@ -1,6 +1,6 @@
 use std::ops::{Deref, DerefMut};
 
-use crate::types::traits::{Resource, SystemParam};
+use crate::{resource::traits::Resource, system::definitions::SystemParam};
 
 pub struct ResMut<'w, T: Resource + 'static> {
     res: &'w mut T,
