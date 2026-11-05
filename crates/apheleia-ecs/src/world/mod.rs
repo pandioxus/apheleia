@@ -5,6 +5,8 @@ pub mod nodedata;
 pub mod resource;
 pub mod systems;
 pub mod local_events;
+pub mod tags;
+pub mod global_events;
 
 use std::{cell::RefCell, rc::Rc};
 
@@ -13,7 +15,7 @@ use apheleia_types::id_gen::IdGenerator;
 use tree_ds::prelude::{Node, Tree};
 
 use crate::{
-    extension::store::ExtensionStore, local_events::LocalEventRegistry, nodedata::store::NodeDataStore, resource::store::ResourceStore, system::store::SystemStore, types::NodeId, world_commands::WorldCommand
+    extension::store::ExtensionStore, global_events::GlobalEventRegistry, local_events::LocalEventRegistry, nodedata::store::NodeDataStore, resource::store::ResourceStore, system::store::SystemStore, tags::TagRegistry, types::NodeId, world_commands::WorldCommand
 };
 
 pub struct World {
@@ -30,7 +32,9 @@ pub struct World {
     extension_store: ExtensionStore,
     system_store: SystemStore,
 
+    tags_registry: TagRegistry,
     local_events: LocalEventRegistry,
+    global_events: GlobalEventRegistry,
 
     world_commands: Vec<Box<dyn WorldCommand>>,
 }
@@ -54,7 +58,9 @@ impl World {
             extension_store: Default::default(),
             system_store: Default::default(),
 
+            tags_registry: Default::default(),
             local_events: Default::default(),
+            global_events: Default::default(),
 
             world_commands: Default::default(),
         }

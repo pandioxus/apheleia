@@ -7,6 +7,8 @@ pub mod resource;
 pub mod system;
 pub mod local_events;
 pub mod query;
+pub mod global_events;
+pub mod tags;
 
 pub mod types {
     pub type NodeId = u16;
