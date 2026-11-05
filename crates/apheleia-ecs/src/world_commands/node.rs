@@ -1,10 +1,7 @@
 use std::{fmt::Debug, mem::take};
 
 use crate::{
-    nodedata::NodeData,
-    types::{NodeId, traits::Extension},
-    world::World,
-    world_commands::WorldCommand,
+    extension::traits::Extension, nodedata::definition::NodeData, types::NodeId, world::World, world_commands::WorldCommand
 };
 
 pub trait NodeSubCommand: Debug {

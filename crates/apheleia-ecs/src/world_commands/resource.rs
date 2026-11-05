@@ -1,4 +1,4 @@
-use crate::{world_commands::WorldCommand, types::traits::Resource};
+use crate::{resource::traits::Resource, world_commands::WorldCommand};
 
 #[derive(Debug)]
 pub struct InsertResource<T: Resource>(T);

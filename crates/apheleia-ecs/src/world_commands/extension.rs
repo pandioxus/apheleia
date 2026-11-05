@@ -1,4 +1,4 @@
-use crate::{world_commands::WorldCommand, types::{NodeId, traits::Extension}};
+use crate::{extension::traits::Extension, types::NodeId, world_commands::WorldCommand};
 
 #[derive(Debug)]
 pub struct AddExtension<T: Extension>(pub NodeId, pub T);

@@ -1,4 +1,4 @@
-use crate::{world_commands::WorldCommand, nodedata::NodeData, types::NodeId};
+use crate::{nodedata::definition::NodeData, types::NodeId, world_commands::WorldCommand};
 
 #[derive(Debug)]
 pub struct SetNodeData(pub NodeId, pub NodeData);
