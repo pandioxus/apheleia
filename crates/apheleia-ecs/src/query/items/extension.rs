@@ -1,7 +1,6 @@
-use crate::{system_params::query::QueryType, types::{NodeId, traits::Extension}, world::World};
+use crate::{extension::traits::Extension, query::items::QueryItem, types::NodeId, world::World};
 
-/// Implement [`QueryType`] for reference to [`Extension`]
-impl<E: Extension> QueryType for &E {
+impl<E: Extension> QueryItem for &E {
     type Item<'w> = &'w E;
 
     fn match_ids(world: &World) -> Option<Vec<NodeId>> {
@@ -15,7 +14,7 @@ impl<E: Extension> QueryType for &E {
 }
 
 /// Implement [`QueryType`] for mutable referece to [`Extension`]
-impl<E: Extension> QueryType for &mut E {
+impl<E: Extension> QueryItem for &mut E {
     type Item<'w> = &'w mut E;
 
     fn match_ids(world: &World) -> Option<Vec<NodeId>> {

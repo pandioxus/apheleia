@@ -7,6 +7,7 @@ pub mod extension;
 pub mod resource;
 pub mod system;
 pub mod local_events;
+pub mod query;
 
 pub mod types {
     pub type NodeId = u16;

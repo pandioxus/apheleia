@@ -1,6 +1,6 @@
-use crate::{nodedata::NodeData, system_params::query::QueryType, types::NodeId, world::World};
+use crate::{nodedata::definition::NodeData, query::items::QueryItem, types::NodeId, world::World};
 
-impl QueryType for NodeData {
+impl QueryItem for NodeData {
     type Item<'w> = &'w NodeData;
 
     fn match_ids(_world: &World) -> Option<Vec<NodeId>> {
@@ -16,7 +16,7 @@ impl QueryType for NodeData {
     }
 }
 
-impl QueryType for NodeId {
+impl QueryItem for NodeId {
     type Item<'w> = NodeId;
 
     fn match_ids(_world: &World) -> Option<Vec<NodeId>> {
