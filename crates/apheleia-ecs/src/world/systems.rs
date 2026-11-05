@@ -1,8 +1,16 @@
-use crate::{stores::systems::function_system::{IntoSystem, System}, types::SystemStage, world::World};
+use crate::{
+    system::definitions::{IntoSystem, System},
+    types::SystemStage,
+    world::World,
+};
 
 impl World {
     #[inline]
-    pub fn system_register<Params: 'static>(&mut self, stage: SystemStage, system: impl IntoSystem<Params>) {
+    pub fn system_register<Params: 'static>(
+        &mut self,
+        stage: SystemStage,
+        system: impl IntoSystem<Params>,
+    ) {
         self.system_store.add_system(stage, system);
     }
 

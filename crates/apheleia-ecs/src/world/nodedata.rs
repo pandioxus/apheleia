@@ -1,4 +1,4 @@
-use crate::{nodedata::NodeData, types::NodeId, world::World};
+use crate::{nodedata::definition::NodeData, types::NodeId, world::World};
 
 impl World {
     #[inline]

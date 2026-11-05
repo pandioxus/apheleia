@@ -1,6 +1,6 @@
 use apheleia_types::slot_map::SlotMap;
 
-use crate::{nodedata::NodeData, types::NodeId};
+use crate::{nodedata::definition::NodeData, types::NodeId};
 
 pub struct NodeDataStore {
     data: SlotMap<NodeData>,

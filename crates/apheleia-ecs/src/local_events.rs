@@ -1,8 +1,10 @@
-use std::{any::TypeId, collections::HashSet};
+use std::{any::{Any, TypeId}, collections::HashSet, fmt::Debug};
 
 use rustc_hash::FxHashMap;
 
-use crate::types::{NodeId, traits::LocalEvent};
+use crate::types::NodeId;
+
+pub trait LocalEvent: Any + Debug + 'static {}
 
 #[derive(Default)]
 pub struct LocalEventRegistry {

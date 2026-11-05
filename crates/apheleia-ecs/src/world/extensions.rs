@@ -1,6 +1,5 @@
 use crate::{
-    types::{NodeId, traits::Extension},
-    world::World,
+    extension::traits::Extension, types::NodeId, world::World
 };
 
 impl World {

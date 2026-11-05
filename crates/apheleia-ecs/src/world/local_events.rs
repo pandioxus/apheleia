@@ -1,4 +1,4 @@
-use crate::{types::{NodeId, traits::LocalEvent}, world::World};
+use crate::{local_events::LocalEvent, types::NodeId, world::World};
 
 impl World {
     #[inline]

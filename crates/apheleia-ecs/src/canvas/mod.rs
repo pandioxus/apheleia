@@ -1,8 +1,8 @@
-use std::{cell::{RefCell, RefMut}, rc::Rc};
+use std::{cell::RefCell, rc::Rc};
 
 use apheleia_core::{buffer::Buffer, style::Style};
 
-use crate::{nodedata::NodeData, types::NodeId};
+use crate::{nodedata::definition::NodeData, types::NodeId};
 
 pub struct Canvas {
     id: NodeId,

@@ -13,11 +13,7 @@ use apheleia_types::id_gen::IdGenerator;
 use tree_ds::prelude::{Node, Tree};
 
 use crate::{
-    stores::{
-        extensions::ExtensionStore, local_events::LocalEventRegistry, nodedata::NodeDataStore, resource::ResourceStore, systems::SystemStore
-    },
-    types::NodeId,
-    world_commands::WorldCommand,
+    extension::store::ExtensionStore, local_events::LocalEventRegistry, nodedata::store::NodeDataStore, resource::store::ResourceStore, system::store::SystemStore, types::NodeId, world_commands::WorldCommand
 };
 
 pub struct World {

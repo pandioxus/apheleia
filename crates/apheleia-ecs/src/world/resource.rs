@@ -1,4 +1,4 @@
-use crate::{types::traits::Resource, world::World};
+use crate::{resource::traits::Resource, world::World};
 
 impl World {
     #[inline]

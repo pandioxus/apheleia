@@ -3,7 +3,7 @@ use std::any::Any;
 use rustc_hash::FxHashMap;
 use sparseset::SparseSet;
 
-use crate::types::{NodeId, traits::Extension};
+use crate::{extension::traits::Extension, types::NodeId};
 
 trait ExtensionContainer<T: Extension>: Any {
     fn insert(&mut self, id: NodeId, extension: T);

@@ -2,7 +2,7 @@ use std::any::{Any, TypeId};
 
 use rustc_hash::FxHashMap;
 
-use crate::types::traits::Resource;
+use crate::resource::traits::Resource;
 
 #[derive(Default)]
 pub struct ResourceStore {
