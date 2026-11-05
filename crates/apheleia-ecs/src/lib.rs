@@ -1,7 +1,6 @@
 pub mod world_commands;
 pub mod nodedata;
 pub mod world;
-pub mod system_params;
 pub mod canvas;
 pub mod extension;
 pub mod resource;
