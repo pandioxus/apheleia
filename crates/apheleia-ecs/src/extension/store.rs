@@ -49,15 +49,9 @@ impl<T: Extension> ExtensionContainer<T> for ExtensionPool<T> {
     }
 }
 
+#[derive(Default)]
 pub(crate) struct ExtensionStore {
     pools: FxHashMap<usize, Box<dyn Any>>, // TODO: Migrate this to a flat array
-}
-impl Default for ExtensionStore {
-    fn default() -> Self {
-        Self {
-            pools: Default::default(),
-        }
-    }
 }
 impl ExtensionStore {
     pub fn register_extension<T: Extension>(&mut self) {

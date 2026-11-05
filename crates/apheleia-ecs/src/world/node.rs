@@ -1,4 +1,4 @@
-use tree_ds::prelude::{Node, NodeRemovalStrategy};
+use tree_ds::prelude::Node;
 
 use crate::{types::NodeId, world::World};
 

@@ -15,17 +15,9 @@ impl ResourceStore {
     }
 
     pub fn get<T: Resource>(&self) -> Option<&T> {
-        let Some(res) = self.resources.get(&TypeId::of::<T>()) else {
-            return None;
-        };
-
-        res.downcast_ref::<T>()
+        self.resources.get(&TypeId::of::<T>())?.downcast_ref::<T>()
     }
     pub fn get_mut<T: Resource>(&mut self) -> Option<&mut T> {
-        let Some(res) = self.resources.get_mut(&TypeId::of::<T>()) else {
-            return None;
-        };
-
-        res.downcast_mut::<T>()
+        self.resources.get_mut(&TypeId::of::<T>())?.downcast_mut::<T>()
     }
 }
